@@ -18,8 +18,15 @@ export const API_SERVICES_URLS = {
     INVOICE_PREVIEW: (id: string) => `/invoice/client/preview/${id}`,
     PAYMENT_OPTIONS: (id: string) => `/invoice/client/payment-options/${id}`,
   },
+  WITHDRAWAL: {
+    GetRequestDetails: (id: string) => `/withdraw/details/${id}`,
+  },
   PAYMENT: {
     STRIPE_SESSION: "/invoice/payment/stripe/create-checkout-session",
+  },
+  WITHDROW: {
+    ADDRECIPINT: "/recipient/list?offset=0&limit=5",
+    OFFICE_LIST: "/withdraw/office-list?office=&limit=10",
   },
 } as const;
 

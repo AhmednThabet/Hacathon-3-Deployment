@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "lib/@headlessui";
-import { ChevronDownIconMini } from "lib/@heroicons";
+// import { ChevronDownIconMini } from "lib/@heroicons";
 import Button from "../Button";
 import Item from "./Item";
 import getDropdownClassNames from "./getDropdownClassNames";
@@ -25,7 +25,7 @@ const Dropdown: DropdownType = ({
         className="inline-flex items-center justify-start"
       >
         {label}
-        <ChevronDownIconMini aria-hidden="true" className="w-4 h-4 ml-1" />
+        {/* <ChevronDownIconMini aria-hidden="true" className="w-4 h-4 ml-1" /> */}
       </Menu.Button>
 
       <Transition
