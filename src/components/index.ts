@@ -18,4 +18,5 @@ export * from "./Stepper";
 export * from "./Divider";
 export * from "./Skeleton";
 export * from "./ToggleButtons";
+export * from "./Preview";
 export { default as Dropdown } from "./Dropdown";
