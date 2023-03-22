@@ -1,7 +1,7 @@
 import Card from "components/Card";
 import { useCurrentUser, useLogout } from "features/authentication";
 import { Button, Dropdown, NoSsr } from "components";
-import { HomeLayout } from "layouts/HomeLayout";
+import { DashboardLayout } from "layouts/DashboardLayout";
 
 const options = [
   { value: "settings", label: "Account settings" },
@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <NoSsr>
-      <HomeLayout>
+      <DashboardLayout>
         <Card>
           <Dropdown label="Options">
             {options.map((option) => (
@@ -47,7 +47,7 @@ const Home = () => {
           <h1 className="text-3xl font-bold underline">Hello world!</h1>
           <h1 className="text-3xl font-bold underline">Hello world!</h1>
         </Card>
-      </HomeLayout>
+      </DashboardLayout>
     </NoSsr>
   );
 };

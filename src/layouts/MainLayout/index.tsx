@@ -22,7 +22,7 @@ export const MainLayout: MainLayoutType = ({
         </header>
       )}
       <main
-        className={`flex-1 flex justify-center items-center min-h-fit p-5 ${contentClassName}`}
+        className={`flex-1 flex justify-center items-center min-h-fit ${contentClassName}`}
       >
         {children}
       </main>
