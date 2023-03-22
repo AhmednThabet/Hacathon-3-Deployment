@@ -33,6 +33,13 @@ import {
   UserCircleIcon as User,
   PaperAirplaneIcon as Send,
   ArrowLeftIcon as ArrowLeftIcon,
+  HomeIcon as HomeIcon,
+  ArrowRightOnRectangleIcon as ArrowRightOnRectangleIcon,
+  Cog8ToothIcon as Cog8ToothIcon,
+  QuestionMarkCircleIcon,
+  ArrowDownTrayIcon as ArrowDownTrayIcon,
+  Bars3Icon as Bars3Icon,
+
 } from "@heroicons/react/24/outline";
 
 export {
@@ -63,8 +70,14 @@ export {
   Send,
   Plus,
   MenuBar,
+  ArrowLeftIcon,
+  HomeIcon,
+  ArrowRightOnRectangleIcon,
+  Cog8ToothIcon,
+  QuestionMarkCircleIcon,
+  ArrowDownTrayIcon,
+  Bars3Icon,
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
-  ArrowLeftIcon
 };

@@ -1,3 +1,3 @@
 export * from "./MainLayout";
-export * from "./HomeLayout";
+export * from "./DashboardLayout";
 export * from "./types";

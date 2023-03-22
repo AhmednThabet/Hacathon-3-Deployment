@@ -9,6 +9,8 @@ export * from "./HelperText";
 export * from "./IconButton";
 export * from "./PhoneInput";
 export { NoSsr };
+export * from "./NavLink";
+
 export * from "./Link";
 export * from "./Spinner";
 export * from "./Image";
