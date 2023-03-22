@@ -1,3 +1,5 @@
+import { NoSsr } from "components";
+import Drawer from "components/Drawer";
 import { useCurrentUser, useLogout } from "features/authentication";
 import { HomeLayout } from "layouts/HomeLayout";
 
@@ -5,7 +7,14 @@ const MohammedZiyad = () => {
   const { user } = useCurrentUser();
   const logout = useLogout();
 
-  return <HomeLayout>s</HomeLayout>;
+  return (
+    <NoSsr>
+      <HomeLayout>
+        world
+        <Drawer>ssss</Drawer>
+      </HomeLayout>
+    </NoSsr>
+  );
 };
 
 MohammedZiyad.mainLayoutProps = {

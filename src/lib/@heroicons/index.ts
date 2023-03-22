@@ -32,6 +32,7 @@ import {
   ArrowsUpDownIcon as ArrowsUpDownIcon,
   UserCircleIcon as User,
   PaperAirplaneIcon as Send,
+  ArrowLeftIcon as ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 
 export {
@@ -65,4 +66,5 @@ export {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
+  ArrowLeftIcon
 };
