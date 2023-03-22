@@ -33,13 +33,13 @@ type IconsVariantsType = {
   endIcon?: ReactNode;
 };
 
-export interface CardProps extends NativeDivProps {}
+export interface CardProps extends NativeDivProps { }
 export type CardType = FC<CardProps>;
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
-    CommonFormElementsType,
-    IconsVariantsType {
+  CommonFormElementsType,
+  IconsVariantsType {
   inputClassName?: string;
   inputSize?: SizeVariantsType;
   labelClassName?: string;
@@ -61,7 +61,7 @@ export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
 }
 export interface SelectProps
   extends Omit<HTMLProps<HTMLSelectElement>, "label">,
-    CommonFormElementsType {
+  CommonFormElementsType {
   selectClassName?: string;
   selectSize?: SizeVariantsType;
   options: { value: string; label: string }[];
@@ -69,24 +69,24 @@ export interface SelectProps
 
 export interface HelperTextProps
   extends HTMLProps<HTMLParagraphElement>,
-    IconsVariantsType {
+  IconsVariantsType {
   text?: string;
   showContent?: boolean;
 }
 
 export type HelperTextType = FC<HelperTextProps>;
 
-export interface IconButtonProps extends ButtonProps {}
+export interface IconButtonProps extends ButtonProps { }
 
 export type IconButtonType = FC<IconButtonProps>;
 
-export interface NoSsrProps extends ChildrenProp {}
+export interface NoSsrProps extends ChildrenProp { }
 
 export type NoSsrType = FC<NoSsrProps>;
 
 export interface PhoneInputProps
   extends ReactPhoneInputProps,
-    CommonFormElementsType {
+  CommonFormElementsType {
   inputClassName?: string;
   inputSize?: SizeVariantsType;
   className?: string;
@@ -97,8 +97,8 @@ export type PhoneInputType = FC<PhoneInputProps>;
 
 export interface LinkProps
   extends NextLinkProps,
-    RefAttributes<HTMLAnchorElement>,
-    ChildrenProp {
+  RefAttributes<HTMLAnchorElement>,
+  ChildrenProp {
   className?: string;
 }
 
@@ -135,7 +135,7 @@ export interface FileInputLabelProps {
 
 export type FileInputLabelType = FC<FileInputLabelProps>;
 
-export interface SvgProps extends React.SVGProps<SVGSVGElement> {}
+export interface SvgProps extends React.SVGProps<SVGSVGElement> { }
 
 export type SvgType = FC<SvgProps>;
 
@@ -181,7 +181,7 @@ export interface StepperProgressBarProps {
 }
 export type StepperProgressBarType = FC<StepperProgressBarProps>;
 
-export interface DividerProps extends NativeDivProps {}
+export interface DividerProps extends NativeDivProps { }
 export type DividerType = FC<DividerProps>;
 
 export interface StepperActionsProps {
@@ -233,3 +233,8 @@ export type DropdownType = FC<PropsWithChildren<DropdownProps>> & {
 };
 
 export { ElementType };
+export interface PortalProps {
+  children: ReactNode;
+  className?: string;
+  backdropDismiss?: any;
+}
