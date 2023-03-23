@@ -1,8 +1,33 @@
 import { Card, Logo, Skeleton } from "components";
 
-export const Preview = ({ data, withClintInfo = false }: any) => {
+export const Preview = ({ data, withClintInfo = false, className }: any) => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const date = new Date();
+
+  let arr = data && data.service;
+  const cleanArray = (arr: any) => {
+    let filteredArray = arr.filter(
+      (item: any) => item.serviceName !== "" && item.serviceAmount !== ""
+    );
+    return filteredArray;
+  };
+  console.log(cleanArray(arr), "from fuuuunction");
+
   return (
-    <div className=" sticky top-[4rem]">
+    <div className={` sticky top-[4rem] mx-10 ${className}`}>
       <h3 className="font-semibold text-xl mb-2">Preview </h3>
       <Card className="px-10">
         <div className="flex justify-between w-full my-5">
@@ -31,21 +56,22 @@ export const Preview = ({ data, withClintInfo = false }: any) => {
               <>
                 <p className="mb-4">Bill To</p>
                 <div className="CardInfo">
-                  {data?.firstName !== "" && data?.lastName !== "" ? (
-                    <p className="">
-                      {data?.firstName} {data?.LastName}
-                    </p>
+                  {data?.fullName !== "" ? (
+                    <p className="text-black font-semibold">{data?.fullName}</p>
                   ) : (
                     <Skeleton height={20} />
                   )}
                   {data?.email !== "" ? (
-                    <p>{data?.emai}</p>
+                    <p>{data?.email} </p>
                   ) : (
                     <Skeleton height={20} className="mt-2" />
                   )}
 
-                  <p>Create Data</p>
-                  <p>July 27 ,2022</p>
+                  <p>Issue Date</p>
+                  <p>
+                    {monthNames[date.getMonth()]} {date.getDate()}{" "}
+                    {date.getFullYear()}
+                  </p>
                 </div>
               </>
             )}
@@ -57,18 +83,13 @@ export const Preview = ({ data, withClintInfo = false }: any) => {
             <p>Amount</p>
           </header>
           <div className="w-full flex flex-col h-[100px] overflow-auto">
-            <div className=" flex justify-between mb-4">
-              <div>
-                {/* {data.service.map((oneService: any) => (
+            <div>
+              {cleanArray(arr).map((oneService: any) => (
+                <div className=" flex justify-between mb-4">
                   <p>{oneService.serviceName} </p>
-                ))} */}
-              </div>
-
-              <div>
-                {/* {data.service.map((oneService: any) => (
                   <p>{oneService.serviceAmount} </p>
-                ))} */}
-              </div>
+                </div>
+              ))}
             </div>
             <hr />
             <div className="flex flex-col  items-end text-gray-dark ">
