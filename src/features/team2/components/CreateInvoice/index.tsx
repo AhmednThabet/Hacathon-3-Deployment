@@ -1,7 +1,7 @@
-import React from "react";
+import { CreateInvoice as CreateInvoiceForm } from "../CreateComponents";
 
-export const CreateInvoice = () => {
-  return <div>CreateInvoice</div>;
+export const CreateInvoice = ({ formData, setFormData }: any) => {
+  return <CreateInvoiceForm formData={formData} setFormData={setFormData} />;
 };
 
 export default CreateInvoice;

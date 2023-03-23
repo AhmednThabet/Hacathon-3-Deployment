@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Preview } from "components";
-import { CreateInvoice } from "features/team2";
+import { CreateLink } from "features/team2";
 import CreateInvoiceLayout from "layouts/CreateInvoiceLayout";
 const index = () => {
   const [previewData, setPreviewData] = useState({
@@ -11,13 +11,13 @@ const index = () => {
 
   return (
     <CreateInvoiceLayout>
-      <CreateInvoice formData={previewData} setFormData={setPreviewData} />
+      <CreateLink formData={previewData} setFormData={setPreviewData} />
       <Preview data={previewData} withClintInfo={false} className="w-[500px]" />
     </CreateInvoiceLayout>
   );
 };
 index.mainLayoutProps = {
-  title: "Creat Invoice",
+  title: "Creat Link",
   pageDescription: "Invoices page description",
   contentClassName: "!p-0 !justify-start",
   footerClassName:
