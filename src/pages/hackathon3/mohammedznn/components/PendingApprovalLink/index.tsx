@@ -54,7 +54,7 @@ const PendingApprovalLink = () => {
 
             {data &&
               data?.service.fixed.map((item: any) => (
-                <div className="flex justify-between mt-5">
+                <div className="flex justify-between mt-5" key={item._id}>
                   <div>
                     <p className="text-xl font-semibold">{item.itemName}</p>
                     <p className="text-sm text-gray-dark">{item.description}</p>
@@ -91,51 +91,7 @@ const PendingApprovalLink = () => {
             <Timeline history={data?.service.history} />
           </div>
 
-          {/* <div>
-            <Preview
-              data={data}
-              withClintInfo={true}
-              className="w-full !mx-0 scale-100 mt-5"
-            />
-          </div> */}
-
-          <p
-            onClick={previewModal.openModal}
-            className="text-blue-dark cursor-pointer"
-          >
-            Show Invoice
-          </p>
-          {/* Modal show preview */}
-          <Modal
-            closeModal={previewModal.closeModal}
-            isOpen={previewModal.isOpen}
-          >
-            <div className="">
-              <div className="flex justify-end mr-14">
-                <Button
-                  type="button"
-                  buttonSize="small"
-                  className="flex gap-1 bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
-                >
-                  <Download className="w-5 h-5" />
-                  Download
-                </Button>
-              </div>
-
-              {/* <XMarkIconMini
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={previewModal.closeModal}
-                /> */}
-              <Preview
-                data={data}
-                withClintInfo={true}
-                className="w-full !mx-0 "
-              />
-            </div>
-          </Modal>
-
-          {/* <p onClick={actionModalOnDrawer.openModal}>test modal</p>
-
+          {/* 
           <Modal
             closeModal={actionModalOnDrawer.closeModal}
             isOpen={actionModalOnDrawer.isOpen}

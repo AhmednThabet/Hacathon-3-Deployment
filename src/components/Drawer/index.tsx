@@ -62,22 +62,37 @@ export const Drawer = ({
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll bg-gray-light py-6 pt-[75px] shadow-xl">
                     <div className="relative mt-6 px-4 sm:px-6">{children}</div>
-                    <div className="px-8 gap-3 my-4 left-0 w-full flex items-center justify-center">
-                      <Button
-                        className="bg-white text-black border border-gray-300 hover:bg-transparent"
-                        fullWidth
-                        onClick={actionButtonFunction || handleClose}
-                      >
-                        {actionButtonText}
-                      </Button>
-                      <Button
-                        className="bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
-                        fullWidth
-                        onClick={() => console.log("edit")}
-                      >
-                        Edit
-                      </Button>
-                    </div>
+                    {actionButtonText.status === "paid" ? (
+                      <></>
+                    ) : (
+                      <div className="px-8">
+                        <div className=" gap-3 my-4 left-0 w-full flex items-center justify-center">
+                          <Button
+                            className="bg-white text-black border border-gray-300 hover:bg-transparent"
+                            fullWidth
+                            onClick={actionButtonFunction || handleClose}
+                          >
+                            {actionButtonText.text}
+                          </Button>
+                          <Button
+                            className="bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
+                            fullWidth
+                            onClick={() => console.log("edit")}
+                          >
+                            Edit
+                          </Button>
+                        </div>
+                        {actionButtonText.status === "sent" && (
+                          <Button
+                            className="bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
+                            fullWidth
+                            onClick={() => console.log("edit")}
+                          >
+                            Send Reminder
+                          </Button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
