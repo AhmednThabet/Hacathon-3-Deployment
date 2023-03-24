@@ -31,14 +31,27 @@ export const taps = [
 ];
 
 export const options = [
-  { id: "paid,", select: "paid" },
+  { id: "paid,", select: "Paid" },
   { id: "sent", select: "Sent" },
   { id: "pending", select: "Pending" },
-  { id: "cancelled", select: "cancelled" },
-  { id: "active", select: "active" },
-  { id: "inactive", select: "inactive" },
+  { id: "cancelled", select: "Cancelled" },
+  { id: "active", select: "Active" },
+  { id: "inactive", select: "Inactive" },
   { id: "ready", select: "Ready" },
-
-  { id: "refunded", select: "refunded" },
-  { id: "rejected", select: " rejected" },
+  { id: "refunded", select: "Refunded" },
+  { id: "rejected", select: " Rejected" },
+];
+export const invoiceOptions = [
+  { id: "paid,", select: "Paid" },
+  { id: "sent", select: "Sent" },
+  { id: "pending", select: "Pending" },
+  { id: "cancelled", select: "Cancelled" },
+  { id: "refunded", select: "Refunded" },
+  { id: "rejected", select: " Rejected" },
+];
+export const ServiceOptions = [
+  { id: "pending", select: "Pending" },
+  { id: "active", select: "Active" },
+  { id: "inactive", select: "Inactive" },
+  { id: "rejected", select: " Rejected" },
 ];

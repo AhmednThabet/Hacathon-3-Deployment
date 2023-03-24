@@ -6,7 +6,7 @@ const TableHeader = ({ columns ,setSort}: any) => {
     const style = {
       width: column.width ?? 130,
       paddingLeft: column.paddingLeft ?? 0,
-      borderBottom: "1px solid #F9F9F9",
+      borderBottom: "1px solid #d6d4d4" ,
       textAlign: "left",
       color: "#9E9E9E",
       fontSize: "17px",
