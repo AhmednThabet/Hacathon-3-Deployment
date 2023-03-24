@@ -13,14 +13,14 @@ const handeller = async (url: string) => {
   return res.data.data;
 };
 
-const TableRows = ({ type, search, sort }: any) => {
+const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   const { data, error, isLoading } = useSWR(
-    `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=10&sort=${sort}&search=${search}&filter=sent%2Cpending&offset=0&type=${type}`,
+    `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=10&sort=${sort}&search=${search}${
+      selectedOptions ?`&filter=${selectedOptions}`:""}&offset=0&type=${type}`,
     handeller
   );
 
   const rows = data?.transactions?.map((row: any) => {
-    // const date = new Date(row.updatedAt);
     const name = row.invoice?.fixed;
     return (
       <tr key={row._id} className="border-y text-base h-[75px]">
@@ -29,7 +29,10 @@ const TableRows = ({ type, search, sort }: any) => {
             if (name?.length === 1) {
               return name[0].itemName;
             } else if (name?.length === 2) {
-              return `${name[0].itemName.slice(0, 10)}...+${name[1].itemName.slice(0, 10)}...`;
+              return `${name[0].itemName.slice(
+                0,
+                10
+              )}...+${name[1].itemName.slice(0, 10)}...`;
             } else {
               return `${name[0].itemName.slice(0, 10)}...+Other`;
             }

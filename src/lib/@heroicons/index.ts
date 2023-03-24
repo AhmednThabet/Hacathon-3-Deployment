@@ -11,6 +11,7 @@ import {
   CheckIcon as CheckIconMini,
   PlusIcon as Plus,
   Bars3CenterLeftIcon as MenuBar,
+  Bars3CenterLeftIcon as BarsIcon,
 } from "@heroicons/react/20/solid";
 
 import {
@@ -82,5 +83,6 @@ export {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
-  SearchIcon
+  SearchIcon,
+  BarsIcon
 };
