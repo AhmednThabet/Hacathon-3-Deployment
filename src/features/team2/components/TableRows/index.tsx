@@ -9,51 +9,38 @@ const handeller = async (url: string) => {
       ...getAuthorizationHeader(),
     },
   });
-  // console.log(res.data.data.transactions[1].invoice.fixed[1].itemName);
   console.log(res.data.data);
   return res.data.data;
 };
 
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const TableRows = ({ type }:any) => {
+const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   const { data, error, isLoading } = useSWR(
-    `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=10&sort=-createdAt&offset=0&type=${type}`,
+    `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=10&sort=${sort}&search=${search}${
+      selectedOptions ?`&filter=${selectedOptions}`:""}&offset=0&type=${type}`,
     handeller
   );
 
   const rows = data?.transactions?.map((row: any) => {
-    const date = new Date(row.updatedAt);
+    const name = row.invoice?.fixed;
     return (
       <tr key={row._id} className="border-y text-base h-[75px]">
         <td key={row._id} className="pl-5">
-          {row.invoice?.fixed?.map((row1: any, _id: number) => {
-            return (
-              <>{row.invoice.fixed?.length <= 2 ? row1.itemName : "hello"}</>
-            );
-          })}
-          <td>
-            {monthNames[date.getMonth()]}
-            {date.getDate()}
-          </td>
+          {(() => {
+            if (name?.length === 1) {
+              return name[0].itemName;
+            } else if (name?.length === 2) {
+              return `${name[0].itemName.slice(
+                0,
+                10
+              )}...+${name[1].itemName.slice(0, 10)}...`;
+            } else {
+              return `${name[0].itemName.slice(0, 10)}...+Other`;
+            }
+          })()}
+          <td>{row.updatedAt}</td>
         </td>
         <td></td>
-        {/* <td>${row.invoice.subTotal}</td> */}
         <td>
-          {" "}
           {row.type == "invoice"
             ? row.invoice?.subTotal
             : row.service?.subTotal}
@@ -79,3 +66,15 @@ export default TableRows;
 //     return <td key={`cell-${index1}`}>{row[column.key]}</td>;
 //   })}
 // </tr>
+
+{
+  /* {row.invoice?.fixed?.map((row1: any, _id: number) => {
+            return (
+              <>{row.invoice.fixed?.length <= 2 ? row1.itemName : "hello"}</>
+            );
+          })} */
+}
+
+{
+  /* {name?.length  === 1 && name[0].itemName || name.length  === 2 && `${name[0].itemName}+${name[1].itemName}` || name.length  === 3 &&`${name[0].itemName}+ Other`} */
+}
