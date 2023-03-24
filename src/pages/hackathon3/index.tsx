@@ -9,10 +9,7 @@ const Hackathon3: NextPageWithLayout = () => {
   const logout = useLogout();
   return (
     <NoSsr>
-      <DashboardLayout>
-        world
-        <Drawer>ssss</Drawer>
-      </DashboardLayout>
+      <DashboardLayout>world</DashboardLayout>
     </NoSsr>
   );
 };
