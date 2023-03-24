@@ -12,7 +12,7 @@ const index = () => {
   return (
     <CreateInvoiceLayout>
       <CreateInvoice formData={previewData} setFormData={setPreviewData} />
-      <Preview data={previewData} withClintInfo={false} className="w-[500px]" />
+      <Preview data={previewData} withClintInfo={true} className="w-[500px]" />
     </CreateInvoiceLayout>
   );
 };

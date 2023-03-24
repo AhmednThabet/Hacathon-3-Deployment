@@ -16,7 +16,7 @@ export const CreateInvoiceLayout: CreateInvoiceLayoutType = ({ children }) => {
       fixed: [
         {
           itemName: "",
-          describtion: "",
+          description: "",
           price: undefined,
         },
       ],

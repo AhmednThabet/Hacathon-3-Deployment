@@ -7,6 +7,15 @@ export const VALIDATION_RULES = {
 } as const;
 
 export const FORM_VALIDATION = {
+  currency: {
+    requiered: "currency is Requiered",
+  },
+  itemName: {
+    required: "Item Name is Requiered",
+  },
+  itemPrice: {
+    required: "Item Price is Requiered",
+  },
   fullName: {
     required: "First and last Name are required",
   },

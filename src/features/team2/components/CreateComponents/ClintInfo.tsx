@@ -91,7 +91,7 @@ const ClintInfo = ({ formData, setFormData }: CreateInvoiceProps) => {
           className="basis-[20%]"
           selectClassName="py-2"
           {...register("currency", {
-            ...FORM_VALIDATION.otp,
+            ...FORM_VALIDATION.currency,
             onChange: () => clearErrors("currency"),
           })}
           error={!!errors.currency}

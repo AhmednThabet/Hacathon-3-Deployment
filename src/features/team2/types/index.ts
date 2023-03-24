@@ -4,10 +4,11 @@ export type JopDetailsProps = {
   id?: number;
   currencyFormat: [string, string];
   replace: any;
+  currency?: string;
   setJopData: Dispatch<
     SetStateAction<{
-      fullName: string;
-      email: string;
+      fullName?: string;
+      email?: string;
       service: {
         serviceName: string;
         serviceAmount: string;
@@ -15,8 +16,9 @@ export type JopDetailsProps = {
     }>
   >;
   jopData: {
-    fullName: string;
-    email: string;
+    fullName?: string;
+    email?: string;
+    currency?: string;
     service: { serviceName: string; serviceAmount: string }[];
   };
 };
@@ -33,16 +35,16 @@ export type InvoiceFiledsForm = {
   };
   fixed: {
     itemName: string;
-    describtion: string;
-    price: number;
+    description: string;
+    price: string | undefined;
   }[];
   currency: string;
 };
 export type CreateInvoiceProps = {
   setFormData: Dispatch<
     SetStateAction<{
-      fullName: string;
-      email: string;
+      fullName?: string;
+      email?: string;
       service: {
         serviceName: string;
         serviceAmount: string;
@@ -50,8 +52,9 @@ export type CreateInvoiceProps = {
     }>
   >;
   formData: {
-    fullName: string;
-    email: string;
+    fullName?: string;
+    email?: string;
+    currency?: string;
     service: {
       serviceName: string;
       serviceAmount: string;

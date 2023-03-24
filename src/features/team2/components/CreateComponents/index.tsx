@@ -1,33 +1,62 @@
 import React, { useState } from "react";
+import { useSWR } from "lib/swr";
+import { useRouter } from "next/router";
+import { useAxios } from "hooks";
 import JobDetails from "./JobDetails";
 import ClintInfo from "./ClintInfo";
 import InvoiceFormHeader from "./InvoiceFormHeader";
+import axios from "axios";
 import { useFormContext, useFieldArray } from "lib/react-hook-form";
 import { Button, Link } from "components";
 import { InvoiceFiledsForm } from "../../types";
 import { getCuntrySymbole } from "../../utils";
+import { getAuthorizationHeader } from "utils";
 import { XCircleIcon } from "lib/@heroicons";
 import { CreateInvoiceProps } from "../../types";
+import { getCookie } from "lib/js-cookie";
+import { useSwrMutationFetch } from "../../hooks";
 export const CreateInvoice = ({
   formData,
   setFormData,
 }: CreateInvoiceProps) => {
-  // const { jopAmountList, handleAdditems, handleDeletitems } = useJobAmount();
   const methods = useFormContext<InvoiceFiledsForm>();
-  const { watch, register, control } = methods;
+  const { watch, register, control, handleSubmit } = methods;
+  const [applyRequest, setApplyRequest] = useState(false);
   const { fields, append, remove, replace } = useFieldArray({
     control,
     name: "fixed",
   });
-  // const handleREmoveItem = (index) => {
-  //   () => remove(index);
-  //   // remov one item from formDAta
-  //   // handle it by passing the index of removed item
 
-  // };
+  const authHeader = getAuthorizationHeader();
+  const router = useRouter();
+
+  const {
+    fetchData: createInvoice,
+    error,
+    loading,
+  } = useAxios<any, any>({
+    config: {
+      url: "https://talents-valley-backend.herokuapp.com/api/invoice/create",
+      method: "POST",
+      headers: authHeader,
+    },
+    options: {
+      manual: true,
+    },
+    onSuccess: () => {
+      router.push("/");
+    },
+  });
+  const onSubmit = handleSubmit((data: any) => {
+    createInvoice(data);
+    console.log(data, "from Create Link");
+  });
 
   return (
-    <div className="bg-white mt-[3rem] px-[5%] w-[45%]">
+    <form
+      className="bg-white mt-[3rem] px-[5%] w-[45%] h-screen"
+      onSubmit={onSubmit}
+    >
       <InvoiceFormHeader headerData={["Invoices", "Create Invoice"]} />
       <ClintInfo formData={formData} setFormData={setFormData} />
       <div className=" h-[220px] overflow-y-auto ">
@@ -48,6 +77,8 @@ export const CreateInvoice = ({
               setJopData={setFormData}
               jopData={formData}
               replace={replace}
+              // singleJop={singleJop}
+              // setSingleJop={setSingleJop}
             />
           </div>
         ))}
@@ -55,19 +86,19 @@ export const CreateInvoice = ({
       <p
         tabIndex={0}
         className="text-blue-light cursor-pointer mb-8"
-        onClick={() =>
+        onClick={() => {
           append({
             itemName: "",
-            describtion: "",
-            price: 0,
-          })
-        }
+            description: "",
+            price: "",
+          });
+        }}
       >
         + Add item or sevice{" "}
       </p>
-      <Button buttonSize="medium" fullWidth={true}>
+      <Button buttonSize="medium" type="submit" fullWidth={true}>
         {" "}
-        Send Invoice
+        {loading ? "Loading ..." : "Send Invoice"}
       </Button>
       <Button
         buttonSize="medium"
@@ -77,7 +108,7 @@ export const CreateInvoice = ({
         {" "}
         Back
       </Button>
-    </div>
+    </form>
   );
 };
 
