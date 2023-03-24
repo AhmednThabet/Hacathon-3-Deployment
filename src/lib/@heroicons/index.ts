@@ -42,6 +42,8 @@ import {
   ArrowDownTrayIcon as ArrowDownTrayIcon,
   Bars3Icon as Bars3Icon,
   MagnifyingGlassIcon as SearchIcon,
+  ChevronLeftIcon as ArrowLeft,
+  ChevronRightIcon as ArrowRight,
 
 } from "@heroicons/react/24/outline";
 
@@ -84,5 +86,7 @@ export {
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
   SearchIcon,
-  BarsIcon
+  BarsIcon,
+  ArrowLeft,
+  ArrowRight
 };

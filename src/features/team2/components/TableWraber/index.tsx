@@ -1,9 +1,7 @@
-import axios from "axios";
 import { Button, Input } from "components";
 import { PaperAirplan } from "components/svg/PaperAirplan";
 import { taps } from "features/team2/data";
 import { PlusIcon, SearchIcon } from "lib/@heroicons";
-import { useSWR } from "lib/swr";
 import React, { useState } from "react";
 import FillterCheckBox from "../FillterCheckBox";
 import Table from "../Table";
@@ -26,15 +24,15 @@ const TableWraber = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <div className="flex justify-between ml-16 gap-4 ">
-          <Button className="flex flex-row  h-12  bg-white !text-[#4375FF] hover:bg-slate-50 px-7">
+          <Button className="flex flex-row  h-12  bg-white !text-[#4375FF] hover:!bg-slate-50 px-7">
             <PlusIcon className="h-4 w-4 mr-2 mt-1.5" />
             <span>Link</span>
           </Button>
-          <Button className="flex flex-row  h-12 bg-white !text-[#4375FF] hover:bg-slate-50 px-5.5">
+          <Button className="flex flex-row  h-12 bg-white !text-[#4375FF] hover:!bg-slate-50 px-5.5">
             <PaperAirplan className="text-blue-light mr-2 mt-1.5" width={16} height={16} />
             <span>Invoice</span>
           </Button>
-          <FillterCheckBox setSelectedOptions={setSelectedOptions}/>
+          <FillterCheckBox setSelectedOptions={setSelectedOptions} type={type}/>
         </div>
       </div>
     <div className="bg-white rounded-lg shadow-md ">
