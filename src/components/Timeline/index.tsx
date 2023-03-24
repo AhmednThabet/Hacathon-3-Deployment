@@ -8,7 +8,7 @@ const dateCalculator = (createdAt: any) => {
 };
 export const Timeline = ({ history = [] }: any) => {
   return (
-    <Card className="p-6 pr-0">
+    <Card className="p-6 pr-0 my-4">
       <h3 className="text-xl font-bold mb-6">Timeline</h3>
       {history.map((item: any, index: any) => (
         <div key={item?._id} className="flex flex-start">

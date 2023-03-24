@@ -2,6 +2,10 @@ import type { NextPageWithLayout } from "types";
 import { NoSsr, Timeline, Drawer, Button } from "components";
 import { useCurrentUser, useLogout } from "features/authentication";
 import DashboardLayout from "layouts/DashboardLayout";
+import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
+import LinkDrawer from "features/invoiceSystem/components/LinkDrawer";
+import InvoiceDrawer from "features/invoiceSystem/components/InvoiceDrawer";
+import { useState } from "react";
 
 const MohammedZiyad: NextPageWithLayout = () => {
   const { user } = useCurrentUser();
@@ -44,13 +48,26 @@ const MohammedZiyad: NextPageWithLayout = () => {
       updatedAt: "2023-03-23T12:09:51.571Z",
     },
   ];
+  const { isToggled, toggleDrawer } = useToggleDrawer(true);
+  const [linkDrawer, setLinkDrawer] = useState(false);
+  const [invoiceDrawer, setInvoiceDrawer] = useState(false);
+  const type: string = "invoice";
+  const handleClick = () => {
+    if (type === "invoice") {
+      setInvoiceDrawer(true);
+    } else setLinkDrawer(true);
+  };
   return (
     <NoSsr>
       <DashboardLayout>
-        <Button> open drawer</Button>
-        <Drawer>
+        {/* <Drawer title="Link" isToggled={isToggled} toggleDrawer={toggleDrawer}>
           <Timeline history={data} />
-        </Drawer>
+        </Drawer> */}
+        <Button onClick={handleClick}>open link drawer</Button>
+        {linkDrawer && <LinkDrawer linkId="641de73c73ac594b84ec5e1f" />}
+        {invoiceDrawer && (
+          <InvoiceDrawer invoiceId="641df914440ad52d259532e1" />
+        )}
       </DashboardLayout>
     </NoSsr>
   );
