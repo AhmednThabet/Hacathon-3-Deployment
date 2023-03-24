@@ -1,3 +1,4 @@
+
 import {
   ExclamationTriangleIcon as ErrorIconMini,
   CheckCircleIcon as CheckCircleIconMini,
@@ -39,6 +40,7 @@ import {
   QuestionMarkCircleIcon,
   ArrowDownTrayIcon as ArrowDownTrayIcon,
   Bars3Icon as Bars3Icon,
+  MagnifyingGlassIcon as SearchIcon,
 
 } from "@heroicons/react/24/outline";
 
@@ -80,4 +82,5 @@ export {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
+  SearchIcon
 };
