@@ -5,12 +5,12 @@ import TableRows from '../TableRows'
 
 
 
-const Table = ({type}:any) => {
+const Table = ({type ,search,sort ,setSort}:any) => {
   return (
     <div >
         <table className='w-full'> 
-           <TableHeader columns={columns}/>
-           <TableRows type={type} />
+           <TableHeader columns={columns} setSort={setSort}/>
+           <TableRows type={type}  search={search} sort={sort} />
         </table>
     </div>
   )

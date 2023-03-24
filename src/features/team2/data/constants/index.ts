@@ -3,7 +3,7 @@ export const columns = [
     key: 'itemName',
     header: 'Name',
     paddingLeft:20,
-    width:150
+    width:220
   },
   {
     key: 'updatedAt',
@@ -11,11 +11,11 @@ export const columns = [
     width:100
   },
   {
-    key: 'price',
+    key: 'subTotal',
     header: 'Amount'
   },
   {
-    key: 'client',
+    key: 'fullName',
     header: 'Client'
   },
   {

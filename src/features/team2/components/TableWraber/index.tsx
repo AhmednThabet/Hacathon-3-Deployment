@@ -1,13 +1,19 @@
+import axios from "axios";
 import { Button, Input } from "components";
 import { PaperAirplan } from "components/svg/PaperAirplan";
 import { taps } from "features/team2/data";
 import { PlusIcon, SearchIcon } from "lib/@heroicons";
+import { useSWR } from "lib/swr";
 import React, { useState } from "react";
 import Table from "../Table";
+
+
 
 const TableWraber = () => {
   const [type, setType] = useState("all");
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
+ 
   return (
     <>
      <div className="flex flex-row  align-center -mb-4">
@@ -43,10 +49,25 @@ const TableWraber = () => {
           );
         })}
       </div>
-      <Table type={type} />
+      <Table type={type}  search={search} sort={sort} setSort={setSort}/>
     </div>
     </>
   );
 };
 
 export default TableWraber;
+
+
+// const statusColor = (status) => {
+//   if (status === "pending") {
+//     return "text-[#DAA545]";
+//   } else if (status === "ready") {
+//     return "text-[#4BAE4F]";
+//   } else if (status === "sent") {
+//     return "text-blue-light";
+//   } else if (status === "paid") {
+//     return "text-[#4BAE4F]";
+//   } else {
+//     return "text-gray-dark";
+//   }
+// };

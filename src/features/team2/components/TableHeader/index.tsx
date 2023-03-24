@@ -1,8 +1,8 @@
 import React from "react";
 
 
-const TableHeader = ({ columns, className }: any) => {
-  const headers = columns.map((column: any, index: any) => {
+const TableHeader = ({ columns ,setSort}: any) => {
+  const headers = columns.map((column: any) => {
     const style = {
       width: column.width ?? 130,
       paddingLeft: column.paddingLeft ?? 0,
@@ -13,14 +13,14 @@ const TableHeader = ({ columns, className }: any) => {
       fontWeight: "600",
     };
     return (
-      <td key={`headCell-${index}`} style={style}>
+      <td key={column.key} style={style}>
         <div className="flex flex-row ">
-          <div style={column.header == "Date" ? { marginLeft: "-60px" } : null}>
+          <div style={column.header == "Date" ? { marginLeft: "-110px" } : null}>
             {column.header}
           </div>
-          <div className="text-xs flex flex-col pl-2">
-            <span>▲</span>
-            <span>▼</span>
+          <div className="text-xs flex flex-col pl-2 cursor-pointer">
+            <span onClick={() => setSort(`${column.key}`)}>▲</span>
+            <span onClick={() => setSort(`-${column.key}`)}>▼</span>
           </div>
         </div>
       </td>
