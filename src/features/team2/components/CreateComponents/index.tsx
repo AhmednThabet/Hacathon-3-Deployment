@@ -54,7 +54,7 @@ export const CreateInvoice = ({
       manual: true,
     },
     onSuccess: () => {
-      router.push("/");
+      router.push("/hackathon3");
     },
   });
   const onSubmit = handleSubmit((data: any) => {

@@ -1,9 +1,13 @@
 import { IconButton } from "components";
+import InvoiceDrawer from "features/invoiceSystem/components/InvoiceDrawer";
+import LinkDrawer from "features/invoiceSystem/components/LinkDrawer";
+import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
 import { ArrowLeft, ArrowRight } from "lib/@heroicons";
 import axios from "lib/axios";
 import { useSWR } from "lib/swr";
 import React, { useState } from "react";
 import { getAuthorizationHeader } from "utils";
+import MohammedZiyad from "../mohammed-ziyad";
 
 const handeller = async (url: string) => {
   const res = await axios.get(url, {
@@ -21,10 +25,12 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [linkDrawer, setLinkDrawer] = useState(false);
   const [invoiceDrawer, setInvoiceDrawer] = useState(false);
+  const { isToggled, toggleDrawer }: any = useToggleDrawer(false);
 
   const { data, error, isLoading } = useSWR(
     `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=${tranPersage}&sort=${sort}&search=${search}${
-      selectedOptions && `&filter=${selectedOptions}`}&offset=${offset}&type=${type}`,
+      selectedOptions && `&filter=${selectedOptions}`
+    }&offset=${offset}&type=${type}`,
     handeller
   );
   const PaginationNext = () => {
@@ -40,8 +46,10 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   const handleClick = () => {
     if (type === "invoice") {
       setInvoiceDrawer(true);
+      toggleDrawer(true);
     } else {
       setLinkDrawer(true);
+      toggleDrawer(true);
     }
   };
 
@@ -58,7 +66,14 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   };
 
   const rows = data?.transactions?.map((row: any) => {
-    const name =  row.type === 'all'?  row.type ==='invoice'?  row.invoice?.fixed : row.service?.fixed :  row.type === 'invoice' ? row.invoice?.fixed : row.service?.fixed;
+    const name =
+      row.type === "all"
+        ? row.type === "invoice"
+          ? row.invoice?.fixed
+          : row.service?.fixed
+        : row.type === "invoice"
+        ? row.invoice?.fixed
+        : row.service?.fixed;
     return (
       <tr
         key={row._id}
@@ -66,9 +81,15 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
         onClick={handleClick}
       >
         {/* {linkDrawer && <LinkDrawer linkId={row.service._id} />}
-        {invoiceDrawer && (
-        <InvoiceDrawer invoiceId={row.invoice._id} />
-        )} */}
+        {invoiceDrawer && <InvoiceDrawer invoiceId={row.invoice._id} />} */}
+        <MohammedZiyad
+          linkId={row.service?._id}
+          invoiceId={row.invoice?._id}
+          toggleDrawer={toggleDrawer}
+          isToggled={isToggled}
+          linkDrawer={linkDrawer}
+          invoiceDrawer={invoiceDrawer}
+        />
         <td key={row._id} className="pl-5">
           {(() => {
             if (name?.length === 1) {
@@ -78,10 +99,10 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
                 0,
                 10
               )}...+${name[1].itemName.slice(0, 10)}...`;
-            } else if(name?.length >=3 ){
+            } else if (name?.length >= 3) {
               return `${name[0]?.itemName.slice(0, 10)}...+Other`;
-            }else{
-              return " - "
+            } else {
+              return " - ";
             }
           })()}
           <td>{row.updatedAt}</td>

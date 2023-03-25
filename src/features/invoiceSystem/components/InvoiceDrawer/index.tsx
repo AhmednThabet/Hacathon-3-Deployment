@@ -48,13 +48,11 @@ const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
   // const { isToggled, toggleDrawer } = useToggleDrawer(true);
   const previewModal = useModal();
   const actionModalOnDrawer = useModal();
+  console.log(invoiceId);
 
   const { data, error, isLoading } = useSWR(
     `${API_ENDPOINT}/invoice/${invoiceId}`,
-    fetcherGet,
-    {
-      revalidateOnFocus: true,
-    }
+    fetcherGet
   );
 
   const getButtonText = (s: string) => {
@@ -62,6 +60,8 @@ const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
       case "paid":
         return { text: "nothing", img: "15-Checked.svg", status: s };
       case "pending_approval":
+        return { text: "Cancel", img: "wall-clock.svg", status: s };
+      case "pending_verification":
         return { text: "Cancel", img: "wall-clock.svg", status: s };
       case "cancelled":
         return { text: "Delete", img: "blocked.svg", status: s };
@@ -97,7 +97,7 @@ const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
                   height={20}
                 />
                 <div className="flex flex-col">
-                  <p>Invoice {data?.invoice.status} Review:</p>
+                  <p>Invoice {data?.invoice?.status} Review:</p>
                   <p className="text-gray-dark">- Description.</p>
                   <p className="text-gray-dark">- Amount.</p>
                 </div>
@@ -114,7 +114,7 @@ const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
           <div className="flex justify-between">
             <div className="flex gap-2">
               <Image
-                src={`/assets/img/${getButtonText(data?.invoice.status).img}`}
+                src={`/assets/img/${getButtonText(data?.invoice?.status).img}`}
                 alt="blocked"
                 width={30}
                 height={30}
@@ -122,7 +122,7 @@ const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
               <div className="flex flex-col">
                 <p
                   className={`text-xl font-semibold ${
-                    data?.invoice.status === "pending_approval"
+                    data?.invoice?.status === "pending_approval"
                       ? "text-[#DAA545]"
                       : data?.invoice.status === "paid"
                       ? "text-green-900"
