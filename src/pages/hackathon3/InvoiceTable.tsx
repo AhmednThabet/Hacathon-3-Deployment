@@ -4,13 +4,11 @@ import DashboardLayout from "layouts/DashboardLayout";
 
 import TableWraber from "features/team2/components/TableWraber";
 
-
-
 const InvoiceTable: NextPageWithLayout = () => {
   return (
     <NoSsr>
       <DashboardLayout>
-          <TableWraber/>
+        <TableWraber />
       </DashboardLayout>
     </NoSsr>
   );

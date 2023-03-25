@@ -12,7 +12,8 @@ const TableWraber = () => {
   const [type, setType] = useState("all");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(["pending"]);
+  console.log(selectedOptions)
   return (
     <>
      <div className="flex flex-row align-center -mb-4">
