@@ -7,11 +7,11 @@ import { CreateInvoiceProps } from "../../types";
 import { getFieldHelperText } from "utils";
 const countruCurrency = [
   countriesCurrency.map((item) => {
-    return { value: item?.name, label: item?.currency?.code };
+    return { value: item?.currency?.code, label: item?.currency?.code };
   }),
 ];
 const flatcountryCurrency = countruCurrency.flat(1);
-const ClintInfo = ({ formData, setFormData }: CreateInvoiceProps) => {
+const ClintInfo = ({ formData, setFormData }: any) => {
   const {
     register,
     formState: { errors },
@@ -28,7 +28,7 @@ const ClintInfo = ({ formData, setFormData }: CreateInvoiceProps) => {
         placeholder="Full Name"
         inputSize="small"
         inputClassName="w-[100%]"
-        className="h-12 "
+        className="h-12 mb-[1.25rem] "
         {...register("client.fullName", {
           ...FORM_VALIDATION.fullName,
           onChange: () => clearErrors("client.fullName"),
@@ -50,7 +50,7 @@ const ClintInfo = ({ formData, setFormData }: CreateInvoiceProps) => {
           id="clint-email-input"
           placeholder="Email"
           inputSize="small"
-          className="h-12"
+          className="h-12 mb-[1.25rem]"
           {...register("client.email", {
             ...FORM_VALIDATION.email,
             onChange: () => clearErrors("client.email"),

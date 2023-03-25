@@ -60,4 +60,7 @@ export type CreateInvoiceProps = {
       serviceAmount: string;
     }[];
   };
+  url: string;
+  id: string;
+  data: any;
 };
