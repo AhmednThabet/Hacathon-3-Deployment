@@ -46,7 +46,11 @@ import {
   ChevronRightIcon as ArrowRight,
 
 } from "@heroicons/react/24/outline";
-
+import {
+  ChevronLeftIcon as BackArrowIcon,
+  XCircleIcon as XCircleIcon,
+  XMarkIcon as XMark,
+} from "@heroicons/react/24/outline";
 export {
   ErrorIconMini,
   CheckCircleIconMini,
@@ -85,6 +89,9 @@ export {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
+  BackArrowIcon,
+  XCircleIcon,
+  XMark,
   SearchIcon,
   BarsIcon,
   ArrowLeft,

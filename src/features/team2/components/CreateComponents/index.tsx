@@ -1,43 +1,52 @@
-import React, { useMemo } from "react";
-import { Button, NoSsr, Select } from "components";
+import React, { useState, useMemo } from "react";
+import { useSWR } from "lib/swr";
 import { useRouter } from "next/router";
+import { useAxios } from "hooks";
+import JobDetails from "./JobDetails";
+import ClintInfo from "./ClintInfo";
+import InvoiceFormHeader from "./InvoiceFormHeader";
+import axios from "axios";
 import { useFormContext, useFieldArray } from "lib/react-hook-form";
-import InvoiceFormHeader from "../CreateComponents/InvoiceFormHeader";
+import { Button, Link, NoSsr } from "components";
 import { InvoiceFiledsForm } from "../../types";
-import { XCircleIcon } from "lib/@heroicons";
-import JobDetails from "../CreateComponents/JobDetails";
 import { getCuntrySymbole } from "../../utils";
 import { getAuthorizationHeader } from "utils";
-import { useAxios } from "hooks";
-
-export const CreateLink = ({ formData, setFormData, url, id, data }: any) => {
+import { XCircleIcon } from "lib/@heroicons";
+import { CreateInvoiceProps } from "../../types";
+import { getCookie } from "lib/js-cookie";
+import { useSwrMutationFetch } from "../../hooks";
+export const CreateInvoice = ({
+  formData,
+  setFormData,
+  id,
+  url,
+  data,
+}: CreateInvoiceProps) => {
   const methods = useFormContext<InvoiceFiledsForm>();
   const { watch, register, control, handleSubmit, reset } = methods;
+
   const { fields, append, remove, replace } = useFieldArray({
     control,
     name: "fixed",
   });
-
-  // const handleCurrancyChange = (e: any) => {
-  //   setFormData({ ...formData, currency: e.target.value });
-  // };
-
-  const authHeader = getAuthorizationHeader();
-  const router = useRouter();
   const mantineData = useMemo(() => {
     if (id) {
       reset(data);
     }
   }, []);
+
+  const authHeader = getAuthorizationHeader();
+  const router = useRouter();
+
   const {
-    fetchData: createLink,
+    fetchData: createInvoice,
     error,
     loading,
   } = useAxios<any, any>({
     config: {
       url: id
         ? url + id
-        : "https://talents-valley-backend.herokuapp.com/api/service/create",
+        : "https://talents-valley-backend.herokuapp.com/api/invoice/create",
       method: id ? "PUT" : "POST",
       headers: authHeader,
     },
@@ -49,29 +58,17 @@ export const CreateLink = ({ formData, setFormData, url, id, data }: any) => {
     },
   });
   const onSubmit = handleSubmit((data: any) => {
-    // handleSubmit(data);
-    const linkBody = data;
-    console.log(linkBody.fixed);
-    console.log(linkBody.currency);
-
-    createLink({ fixed: data.fixed, currency: data.currency });
+    createInvoice(data);
   });
 
   return (
     <NoSsr>
       <form
-        className="bg-white mt-[3rem] px-[5%] w-[45%] h-screen"
+        className="bg-white mt-[3rem] px-[5%] w-[45%] h-full"
         onSubmit={onSubmit}
       >
-        <InvoiceFormHeader headerData={["Invoices", "Create Link"]} />
-        <Select
-          label="Currency"
-          options={[
-            { value: "USD", label: "USD" },
-            { value: "EUR", label: "EUR" },
-          ]}
-          {...register("currency")}
-        />
+        <InvoiceFormHeader headerData={["Invoices", "Create Invoice"]} />
+        <ClintInfo formData={formData} setFormData={setFormData} />
         <div className=" h-[220px] overflow-y-auto ">
           {fields.map((field, index) => (
             <div key={index} className=" w-full max-h-[250px]">
@@ -97,19 +94,25 @@ export const CreateLink = ({ formData, setFormData, url, id, data }: any) => {
         <p
           tabIndex={0}
           className="text-blue-light cursor-pointer mb-8"
-          onClick={() =>
+          onClick={() => {
             append({
               itemName: "",
               description: "",
-              price: undefined,
-            })
-          }
+              price: "",
+            });
+          }}
         >
           + Add item or sevice{" "}
         </p>
         <Button buttonSize="medium" type="submit" fullWidth={true}>
           {" "}
-          {loading ? "Loading ..." : "Create Link"}
+          {id
+            ? loading
+              ? "Loading ..."
+              : "Save Changes"
+            : loading
+            ? "Loading ..."
+            : "Send Invoice"}
         </Button>
         <Button
           buttonSize="medium"
@@ -124,4 +127,4 @@ export const CreateLink = ({ formData, setFormData, url, id, data }: any) => {
   );
 };
 
-export default CreateLink;
+export default CreateInvoice;
