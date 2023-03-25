@@ -2,22 +2,34 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Button } from "components";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const TestDrawer = ({
   children,
   title = "panel title",
   actionButtonText = "cancle",
   actionButtonFunction,
+  data,
+  isToggled,
+  toggleDrawer,
 }: any) => {
-  const [open, setOpen] = useState(true);
+  //   const [open, setOpen] = useState(true);
+  const router = useRouter();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  //   const handleClose = () => {
+  //     setOpen(false);
+  //   };
+
+  console.log("data", data);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+    <Transition.Root show={isToggled} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        onClose={() => toggleDrawer(false)}
+      >
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -44,7 +56,7 @@ export const TestDrawer = ({
                       <button
                         type="button"
                         className="rounded-md text-black focus:outline-none focus:ring-2 "
-                        onClick={handleClose}
+                        onClick={() => toggleDrawer(false)}
                       >
                         <span className="sr-only">Close panel</span>
                         <ArrowLeftIcon
@@ -68,23 +80,29 @@ export const TestDrawer = ({
                       <div className="px-8">
                         <div className=" gap-3 my-4 left-0 w-full flex items-center justify-center">
                           <Button
-                            className="bg-white text-black border border-gray-300 hover:bg-transparent"
+                            className="!bg-white !text-black border !border-gray-300 hover:bg-transparent"
                             fullWidth
-                            onClick={actionButtonFunction || handleClose}
+                            onClick={actionButtonFunction}
                           >
                             {actionButtonText.text}
                           </Button>
                           <Button
-                            className="bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
+                            className="!bg-white !text-blue-500 border !border-gray-300 hover:bg-transparent"
                             fullWidth
-                            onClick={() => console.log("edit")}
+                            onClick={() =>
+                              router.push({
+                                pathname: `/hackathon3/InvoiceTable/[vid]`,
+                                query: { vid: data?.invoice?._id },
+                                // state: { data },
+                              })
+                            }
                           >
                             Edit
                           </Button>
                         </div>
                         {actionButtonText.status === "sent" && (
                           <Button
-                            className="bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
+                            className="!bg-white !text-blue-500 border !border-gray-300 hover:bg-transparent"
                             fullWidth
                             onClick={() => console.log("edit")}
                           >
