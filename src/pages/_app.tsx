@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import type { AppProps } from "next/app";
 import { MainLayout } from "layouts";
 import type { NextPageWithLayout } from "types";
