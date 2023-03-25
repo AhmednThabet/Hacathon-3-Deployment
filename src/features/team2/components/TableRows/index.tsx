@@ -21,9 +21,10 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [linkDrawer, setLinkDrawer] = useState(false);
   const [invoiceDrawer, setInvoiceDrawer] = useState(false);
+
   const { data, error, isLoading } = useSWR(
     `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=${tranPersage}&sort=${sort}&search=${search}${
-      selectedOptions ? `&filter=${selectedOptions}` : ""
+      selectedOptions ? `&filter=${selectedOptions}` : "pending"
     }&offset=${offset}&type=${type}`,
     handeller
   );
@@ -45,10 +46,20 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
     }
   };
 
-        
+  const ColorforStatus = (status: any) => {
+    if (status === "pending") {
+      return "text-[#DAA545]";
+    } else if (status === "sent") {
+      return "text-green-light";
+    } else if (status === "paid") {
+      return "text-green-light";
+    } else {
+      return "text-gray-dark";
+    }
+  };
 
   const rows = data?.transactions?.map((row: any) => {
-    const name = row.invoice?.fixed;
+    const name = row.invoice?.fixed || [];
     return (
       <tr
         key={row._id}
@@ -62,14 +73,14 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
         <td key={row._id} className="pl-5">
           {(() => {
             if (name?.length === 1) {
-              return name[0].itemName;
+              return name.itemName;
             } else if (name?.length === 2) {
-              return `${name[0].itemName.slice(
+              return `${name[0]?.itemName.slice(
                 0,
                 10
               )}...+${name[1].itemName.slice(0, 10)}...`;
             } else {
-              return `${name[0].itemName.slice(0, 10)}...+Other`;
+              return `${name[0]?.itemName.slice(0, 10)}...+Other`;
             }
           })()}
           <td>{row.updatedAt}</td>
@@ -89,27 +100,38 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
             : row.service?.paidInvoice >= 0 &&
               `${row.service?.paidInvoice}Client`}
         </td>
-        <td>
-          {row.type == "invoice" ? row.invoice?.status : row.service?.status}
+        <td className={ColorforStatus(row.invoice?.status)}>
+          {row.type == "invoice"
+            ? `${
+                row.invoice?.status == "rejected"
+                  ? "disapproved"
+                  : row.invoice?.status
+              }`
+            : `${
+                row.service?.status == "rejected"
+                  ? "disapproved"
+                  : row.service?.status
+              }`}
+          {row.invoice?.status === "unpaid" && "sent"}
         </td>
       </tr>
-      
     );
   });
 
   return (
     <tbody>
       {rows}
-
-      <div className=" text-[#9E9E9E] flex content-center  ">
-        <IconButton>
-          <ArrowLeft className="text-[#9E9E9E]" onClick={PaginationPrev} />
-        </IconButton>
-        <span className="pt-1">Page {currentPage} - 10</span>
-        <IconButton>
-          <ArrowRight className="text-[#9E9E9E]" onClick={PaginationNext} />
-        </IconButton>
-      </div>
+      <tr>
+        <td className=" text-[#9E9E9E] flex content-center  ">
+          <IconButton>
+            <ArrowLeft className="text-[#9E9E9E]" onClick={PaginationPrev} />
+          </IconButton>
+          <span className="pt-1">Page {currentPage} - 10</span>
+          <IconButton>
+            <ArrowRight className="text-[#9E9E9E]" onClick={PaginationNext} />
+          </IconButton>
+        </td>
+      </tr>
     </tbody>
   );
 };
@@ -125,19 +147,3 @@ export default TableRows;
 {
   /* {name?.length  === 1 && name[0].itemName || name.length  === 2 && `${name[0].itemName}+${name[1].itemName}` || name.length  === 3 &&`${name[0].itemName}+ Other`} */
 }
-// const ColorforStatus = (status) => {
-//   if (status === "pending") {
-//     return "text-[#DAA545]";
-//   } else if (status === "ready") {
-//     return "text-[#4BAE4F]";
-//   } else if (status === "sent") {
-//     return "text-blue-light";
-//   } else if (status === "paid") {
-//     return "text-[#4BAE4F]";
-//   } else {
-//     return "text-gray-dark";
-//   }
-// };
-// className={`px-6 py-4 font-medium ${ColorforStatus(
-//   withdraw.status
-// )}`}

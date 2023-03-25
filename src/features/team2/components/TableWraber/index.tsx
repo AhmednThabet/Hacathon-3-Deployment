@@ -58,16 +58,4 @@ const TableWraber = () => {
 export default TableWraber;
 
 
-// const statusColor = (status) => {
-//   if (status === "pending") {
-//     return "text-[#DAA545]";
-//   } else if (status === "ready") {
-//     return "text-[#4BAE4F]";
-//   } else if (status === "sent") {
-//     return "text-blue-light";
-//   } else if (status === "paid") {
-//     return "text-[#4BAE4F]";
-//   } else {
-//     return "text-gray-dark";
-//   }
-// };
+
