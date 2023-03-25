@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Preview } from "components";
 import { CreateLink } from "features/team2";
 import CreateInvoiceLayout from "layouts/CreateInvoiceLayout";
-const index = () => {
+const CreateLinkPage = () => {
   const [previewData, setPreviewData] = useState({
     currency: "",
     service: [],
@@ -42,11 +42,11 @@ const index = () => {
     </CreateInvoiceLayout>
   );
 };
-index.mainLayoutProps = {
+CreateLinkPage.mainLayoutProps = {
   title: "Creat Link",
   pageDescription: "Invoices page description",
   contentClassName: "!p-0 !justify-start",
   footerClassName:
     "!md:justify-center md:fixed md:bottom-[0%] md:right-[12%]  ",
 };
-export default index;
+export default CreateLinkPage;
