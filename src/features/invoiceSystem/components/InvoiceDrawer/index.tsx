@@ -1,13 +1,6 @@
 import axios from "axios";
-import {
-  NoSsr,
-  Image,
-  Modal,
-  // InvoicePreview,
-  Button,
-  Timeline,
-} from "components";
-import Drawer from "components/Drawer";
+import { Image, Modal, InvoicePreview, Button, Timeline } from "components";
+import TestDrawer from "features/invoiceSystem/components/TestDrawer";
 import { COOKIES_KEYS, API_ENDPOINT } from "data";
 import { useCurrentUser, useLogout } from "features/authentication";
 import { Download } from "lib/@heroicons";
@@ -25,15 +18,17 @@ const fetcherGet = async (url: any) => {
       "Content-Type": "application/json",
     },
   });
+  console.log(res.data.data);
+
   return res.data.data;
 };
 
-const fetcherPost = async (url: string) => {
+const fetcherPost = async (url: string, status: string) => {
   const currentUser = getCookie(COOKIES_KEYS.currentUser);
   const res = await axios.post(
     url,
     {
-      status: "cancelled",
+      status: status === "pending_approval" ? "cancelled" : "archived",
     },
     {
       headers: {
@@ -46,17 +41,20 @@ const fetcherPost = async (url: string) => {
   return res.data.data;
 };
 
-const InvoiceDrawer = ({ invoiceId }: any) => {
+const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
   const { user } = useCurrentUser();
   const logout = useLogout();
 
-  const { isToggled, toggleDrawer } = useToggleDrawer(true);
+  // const { isToggled, toggleDrawer } = useToggleDrawer(true);
   const previewModal = useModal();
   const actionModalOnDrawer = useModal();
 
   const { data, error, isLoading } = useSWR(
     `${API_ENDPOINT}/invoice/${invoiceId}`,
-    fetcherGet
+    fetcherGet,
+    {
+      revalidateOnFocus: true,
+    }
   );
 
   const getButtonText = (s: string) => {
@@ -77,12 +75,13 @@ const InvoiceDrawer = ({ invoiceId }: any) => {
   };
 
   return (
-    <Drawer
+    <TestDrawer
       title="Invoice"
-      isToggled={true}
+      isToggled={isToggled}
       toggleDrawer={toggleDrawer}
-      // actionButtonText={getButtonText(data?.invoice.status)}
-      // actionButtonFunction={actionModalOnDrawer.openModal}
+      actionButtonText={getButtonText(data?.invoice.status)}
+      actionButtonFunction={actionModalOnDrawer.openModal}
+      data={data}
     >
       {isLoading ? (
         <p>loading ...</p>
@@ -91,12 +90,12 @@ const InvoiceDrawer = ({ invoiceId }: any) => {
           {data?.invoice.status === "Disapproved" && (
             <div className="flex justify-between mb-5 bg-white p-4">
               <div className="flex gap-4 items-start">
-                {/* <Image
+                <Image
                   src={`/assets/img/${getButtonText("Disapproved").img}`}
                   alt="blocked"
                   width={20}
                   height={20}
-                /> */}
+                />
                 <div className="flex flex-col">
                   <p>Invoice {data?.invoice.status} Review:</p>
                   <p className="text-gray-dark">- Description.</p>
@@ -114,21 +113,24 @@ const InvoiceDrawer = ({ invoiceId }: any) => {
 
           <div className="flex justify-between">
             <div className="flex gap-2">
-              {/* <Image
+              <Image
                 src={`/assets/img/${getButtonText(data?.invoice.status).img}`}
                 alt="blocked"
                 width={30}
                 height={30}
-              /> */}
+              />
               <div className="flex flex-col">
                 <p
                   className={`text-xl font-semibold ${
                     data?.invoice.status === "pending_approval"
                       ? "text-[#DAA545]"
+                      : data?.invoice.status === "paid"
+                      ? "text-green-900"
                       : "text-black"
                   }`}
                 >
-                  {data?.invoice.status}
+                  {data?.invoice.status[0].toUpperCase() +
+                    data?.invoice.status.slice(1)}
                 </p>
                 <p className="text-xs text-gray-dark">
                   {data?.invoice.status === "paid" ? (
@@ -192,13 +194,9 @@ const InvoiceDrawer = ({ invoiceId }: any) => {
             <Timeline history={data?.invoice.history} />
           </div>
 
-          {/* <div>
-                <InvoicePreview
-                  data={data}
-                  isLoading={isLoading}
-                  className="!w-fit-content"
-                />
-              </div> */}
+          <div>
+            <InvoicePreview data={data} isLoading={isLoading} />
+          </div>
 
           <p
             onClick={previewModal.openModal}
@@ -216,17 +214,13 @@ const InvoiceDrawer = ({ invoiceId }: any) => {
                 <Button
                   type="button"
                   buttonSize="small"
-                  className="flex gap-1 bg-white text-blue-500 border border-gray-300 hover:bg-transparent"
+                  className="flex gap-1 !bg-white !text-blue-500 border !border-gray-300 hover:bg-transparent"
                 >
                   <Download className="w-5 h-5" />
                   Download
                 </Button>
               </div>
-              {/* <InvoicePreview
-                    data={data}
-                    className="scale-100"
-                    // isOpen={previewModal.isOpen}
-                  /> */}
+              <InvoicePreview data={data} className="!w-[700px]" />
             </div>
           </Modal>
 
@@ -240,31 +234,32 @@ const InvoiceDrawer = ({ invoiceId }: any) => {
               </p>
               <div className=" gap-3 my-5 w-full flex ">
                 <Button
-                  className="bg-white text-black border border-gray-300 hover:bg-transparent"
+                  className="!bg-white !text-black border !border-gray-300 hover:bg-transparent"
                   fullWidth
                   onClick={actionModalOnDrawer.closeModal}
                 >
-                  No
+                  {data?.invoice.status === "cancelled" ? "Cancel" : "No"}
                 </Button>
                 <Button
-                  className="bg-[#D84242] text-white border border-gray-300 hover:bg-transparent hover:text-[#D84242]"
+                  className="!bg-[#D84242] !text-white border !border-gray-300 hover:!bg-transparent hover:!text-[#D84242]"
                   fullWidth
                   onClick={() => {
                     fetcherPost(
                       "https://talents-valley-backend.herokuapp.com/api/invoice/change-status/" +
-                        data?.invoice._id
+                        data?.invoice._id,
+                      data?.invoice.status
                     );
                     actionModalOnDrawer.closeModal();
                   }}
                 >
-                  Yes
+                  {data?.invoice.status === "cancelled" ? "Delete" : "Yes"}
                 </Button>
               </div>
             </div>
           </Modal>
         </>
       )}
-    </Drawer>
+    </TestDrawer>
   );
 };
 

@@ -1,5 +1,5 @@
 import type { NextPageWithLayout } from "types";
-import { NoSsr, Timeline, Drawer, Button } from "components";
+import { NoSsr, Timeline, Drawer, Button, Image } from "components";
 import { useCurrentUser, useLogout } from "features/authentication";
 import DashboardLayout from "layouts/DashboardLayout";
 import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
@@ -48,14 +48,19 @@ const MohammedZiyad: NextPageWithLayout = () => {
       updatedAt: "2023-03-23T12:09:51.571Z",
     },
   ];
-  const { isToggled, toggleDrawer } = useToggleDrawer(true);
+  const { isToggled, toggleDrawer }: any = useToggleDrawer(false);
   const [linkDrawer, setLinkDrawer] = useState(false);
   const [invoiceDrawer, setInvoiceDrawer] = useState(false);
+  const [toast, setToast] = useState(false);
   const type: string = "invoice";
   const handleClick = () => {
     if (type === "invoice") {
       setInvoiceDrawer(true);
-    } else setLinkDrawer(true);
+      toggleDrawer(true);
+    } else {
+      setLinkDrawer(true);
+      toggleDrawer(true);
+    }
   };
   return (
     <NoSsr>
@@ -64,10 +69,49 @@ const MohammedZiyad: NextPageWithLayout = () => {
           <Timeline history={data} />
         </Drawer> */}
         <Button onClick={handleClick}>open link drawer</Button>
-        {linkDrawer && <LinkDrawer linkId="641de73c73ac594b84ec5e1f" />}
-        {invoiceDrawer && (
-          <InvoiceDrawer invoiceId="641df914440ad52d259532e1" />
+        {linkDrawer && (
+          <LinkDrawer
+            isToggled={isToggled}
+            toggleDrawer={toggleDrawer}
+            linkId="641de73c73ac594b84ec5e1f"
+          />
         )}
+        {invoiceDrawer && (
+          <InvoiceDrawer
+            isToggled={isToggled}
+            toggleDrawer={toggleDrawer}
+            invoiceId="641da70873ac594b84ec3096"
+          />
+        )}
+
+        <div className="mt-10 space-x-5">
+          <button
+            onClick={() =>
+              setTimeout(function () {
+                setToast(!toast);
+              }, 5000)
+            }
+            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white"
+          >
+            Show Toast
+          </button>
+        </div>
+        <div
+          id="myToast"
+          className={`${
+            toast ? "" : "hidden"
+          }  fixed right-96 bottom-20 px-5 py-4 border border-gray-light bg-[#F2FFF3] drop-shadow-lg`}
+        >
+          <p className="text-xl font-semibold flex gap-3 items-center">
+            <Image
+              src="/assets/img/correct.svg"
+              alt="correct"
+              width={20}
+              height={20}
+            />
+            Your link is deactivated successfully
+          </p>
+        </div>
       </DashboardLayout>
     </NoSsr>
   );
