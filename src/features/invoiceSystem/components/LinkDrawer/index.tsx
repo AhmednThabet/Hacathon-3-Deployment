@@ -1,23 +1,21 @@
 import axios from "axios";
-import { Drawer } from "components";
+import { Drawer, Skeleton } from "components";
 import { API_ENDPOINT } from "data";
 // import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
 import { useSWR } from "lib/swr";
 import { getAuthorizationHeader } from "utils";
 import ActiveDrawer from "./ActiveDrawer";
+import CancledDrawer from "./CancledDrawer";
+import InActiveDrawer from "./InActiveDrawer";
+import PendingApprovalDrawer from "./PendingApprovalDrawer";
 
 const LinkDrawer = ({ linkId, isToggled, toggleDrawer }: any) => {
-  // const { isToggled, toggleDrawer } = useToggleDrawer(true);
-
-  // TODO:SWR data fetch for the link using its id
   const handeler = async (url: string) => {
     const res = await axios.get(url, {
       headers: {
         ...getAuthorizationHeader(),
       },
     });
-
-    console.log("Link data", res.data.data);
     return res.data.data;
   };
 
@@ -26,36 +24,37 @@ const LinkDrawer = ({ linkId, isToggled, toggleDrawer }: any) => {
     handeler
   );
 
-  // TODO: active case
   return (
     <Drawer
       title="Link"
       isToggled={isToggled}
       toggleDrawer={toggleDrawer}
-      actionButtonText="Deactivate"
+      actionButtonText="cancle"
     >
-      {data?.service?.status === "pending_approval" && (
+      {isLoading && (
+        <div className="flex flex-col gap-3">
+          <Skeleton width={400} height={50} />
+          <Skeleton width={400} height={50} />
+          <Skeleton width={400} height={50} />
+          <Skeleton width={400} height={50} />
+          <Skeleton width={400} height={50} />
+        </div>
+      )}
+      {error && error.message}
+      {data?.service?.status === "active" && (
         <ActiveDrawer data={data && data} />
       )}
-      {/* {data?.service?.status === "pending_approval" && (
-        <PendingApprovalDrawer
-          data={data && data}
-          isToggled={true}
-          toggleDrawer={() => {}}
-        />
-      )}
       {data?.service?.status === "pending_approval" && (
-        <PendingApprovalDrawer
-          data={data && data}
-          isToggled={true}
-          toggleDrawer={() => {}}
-        />
-      )} */}
+        <PendingApprovalDrawer data={data && data} />
+      )}
+      {data?.service?.status === "inactive" && (
+        <InActiveDrawer data={data && data} />
+      )}
+      {data?.service?.status === "cancled" && (
+        <CancledDrawer data={data && data} />
+      )}
     </Drawer>
   );
-  // TODO: InActive case
-
-  // TODO: disapproaved case
 };
 
 export default LinkDrawer;

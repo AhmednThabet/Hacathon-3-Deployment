@@ -2,7 +2,7 @@ import { Card, Timeline } from "components";
 import { Link } from "components/svg";
 import { LinkCopy } from "../../LinkCopy";
 
-const ActiveDrawer = ({ data }: any) => {
+const InActiveDrawer = ({ data }: any) => {
   const service = data?.service;
 
   return (
@@ -10,10 +10,10 @@ const ActiveDrawer = ({ data }: any) => {
       <Card className="flex flex-col p-5 mb-4">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-3">
-            <Link fill="#4375FF" />
+            <Link fill="#BEC2C6" />
             <div className="flex flex-col">
-              <h3 className="text-blue-light text-xl font-medium">Active</h3>
-              <p className="text-gray-400">Your link can be send.</p>
+              <h3 className=" text-xl font-medium">inactive</h3>
+              <p className="text-gray-400">Your link cant be send.</p>
             </div>
           </div>
           <p>
@@ -36,7 +36,7 @@ const ActiveDrawer = ({ data }: any) => {
           </div>
         </div>
       </Card>
-      <LinkCopy linkId={service?._id} />
+      <LinkCopy linkId={service?._id} disabled />
       <Card className="flex items-start justify-between w-full my-4">
         <div className="flex flex-col items-center">
           <p className="text-gray-400 ">Balance</p>
@@ -55,9 +55,16 @@ const ActiveDrawer = ({ data }: any) => {
           <p className="font-medium">{service?.subTotal}</p>
         </div>
       </Card>
+      <Card>
+        {data?.invoices?.data.map((inv: any) => {
+          <div className="flex">
+            <p className="font-medium">{inv}</p>
+          </div>;
+        })}
+      </Card>
       <Timeline history={service?.history} />
     </>
   );
 };
 
-export default ActiveDrawer;
+export default InActiveDrawer;
