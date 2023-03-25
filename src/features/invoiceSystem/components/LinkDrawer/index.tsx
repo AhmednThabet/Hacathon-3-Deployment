@@ -5,6 +5,7 @@ import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
 import { useSWR } from "lib/swr";
 import { getAuthorizationHeader } from "utils";
 import ActiveDrawer from "./ActiveDrawer";
+import PendingApprovalDrawer from "./PendingApprovalDrawer";
 
 const LinkDrawer = ({ linkId }: any) => {
   const { isToggled, toggleDrawer } = useToggleDrawer(true);
@@ -26,22 +27,21 @@ const LinkDrawer = ({ linkId }: any) => {
     handeler
   );
 
-  // TODO: active case
-  if (data?.service?.status === "pending_approval")
-    return (
-      <Drawer
-        title="Link"
-        isToggled={true}
-        toggleDrawer={toggleDrawer}
-        actionButtonText="Deactivate"
-      >
-        <ActiveDrawer
-          data={data && data}
-          isToggled={true}
-          toggleDrawer={() => {}}
-        />
-      </Drawer>
-    );
+  return (
+    <Drawer
+      title="Link"
+      isToggled={true}
+      toggleDrawer={toggleDrawer}
+      actionButtonText="cancle"
+    >
+      {data?.service?.status === "active" && (
+        <ActiveDrawer data={data && data} />
+      )}
+      {data?.service?.status === "pending_approval" && (
+        <PendingApprovalDrawer data={data && data} />
+      )}
+    </Drawer>
+  );
   // TODO: InActive case
 
   // TODO: disapproaved case
