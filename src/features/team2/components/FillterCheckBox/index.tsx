@@ -12,7 +12,7 @@ function FillterHandller(event:any) {
     if (checked === true) {
       setSelectedOptions((pre: any) => [...pre, value]);
     } else {
-      setSelectedOptions((pre: any[]) => pre.filter(status => status !== value));
+      setSelectedOptions((pre: any) => pre.filter((status:any) => status !== value));
     }
    }
   return (
