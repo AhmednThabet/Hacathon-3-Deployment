@@ -19,13 +19,19 @@ const handeller = async (url: string) => {
   return res.data.data;
 };
 
-const TableRows = ({ type, search, sort, selectedOptions }: any) => {
+const TableRows = ({
+  type,
+  search,
+  sort,
+  selectedOptions,
+  setLinkDrawer,
+  setInvoiceDrawer,
+  toggleDrawer,
+  setGetId,
+}: any) => {
   const [offset, setOffset] = useState(0);
   const [tranPersage, setTranPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
-  const [linkDrawer, setLinkDrawer] = useState(false);
-  const [invoiceDrawer, setInvoiceDrawer] = useState(false);
-  const { isToggled, toggleDrawer }: any = useToggleDrawer(false);
 
   const { data, error, isLoading } = useSWR(
     `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=${tranPersage}&sort=${sort}&search=${search}${
@@ -43,13 +49,14 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   };
 
   type = "invoice";
-  const handleClick = () => {
+  const handleClick = (id: string) => {
     if (type === "invoice") {
+      setGetId(id);
       setInvoiceDrawer(true);
-      toggleDrawer(true);
+      toggleDrawer();
     } else {
       setLinkDrawer(true);
-      toggleDrawer(true);
+      toggleDrawer();
     }
   };
 
@@ -64,6 +71,20 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
       return "text-gray-dark";
     }
   };
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   const rows = data?.transactions?.map((row: any) => {
     const name =
@@ -74,22 +95,18 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
         : row.type === "invoice"
         ? row.invoice?.fixed
         : row.service?.fixed;
+    const d = new Date(row.updatedAt);
+
+    // const name =  row.type === 'all'?  row.type ==='invoice'?  row.invoice?.fixed : row.service?.fixed :  row.type === 'invoice' ? row.invoice?.fixed : row.service?.fixed;
     return (
       <tr
         key={row._id}
         className="border-y text-base h-[75px] text-[#707070] font-[600] hover:bg-slate-50 px-7"
-        onClick={handleClick}
+        onClick={() => handleClick(row._id)}
       >
         {/* {linkDrawer && <LinkDrawer linkId={row.service._id} />}
         {invoiceDrawer && <InvoiceDrawer invoiceId={row.invoice._id} />} */}
-        <MohammedZiyad
-          linkId={row.service?._id}
-          invoiceId={row.invoice?._id}
-          toggleDrawer={toggleDrawer}
-          isToggled={isToggled}
-          linkDrawer={linkDrawer}
-          invoiceDrawer={invoiceDrawer}
-        />
+
         <td key={row._id} className="pl-5">
           {(() => {
             if (name?.length === 1) {
@@ -105,7 +122,9 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
               return " - ";
             }
           })()}
-          <td>{row.updatedAt}</td>
+          <td>
+            {months[d.getMonth()]} {d.getDate()}
+          </td>
         </td>
         <td></td>
         <td>
