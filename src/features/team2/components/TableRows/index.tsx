@@ -24,8 +24,7 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
 
   const { data, error, isLoading } = useSWR(
     `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=${tranPersage}&sort=${sort}&search=${search}${
-      selectedOptions ? `&filter=${selectedOptions}` : "pending"
-    }&offset=${offset}&type=${type}`,
+      selectedOptions && `&filter=${selectedOptions}`}&offset=${offset}&type=${type}`,
     handeller
   );
   const PaginationNext = () => {
@@ -59,7 +58,7 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   };
 
   const rows = data?.transactions?.map((row: any) => {
-    const name = row.invoice?.fixed || [];
+    const name =  row.type === 'all'?  row.type ==='invoice'?  row.invoice?.fixed : row.service?.fixed :  row.type === 'invoice' ? row.invoice?.fixed : row.service?.fixed;
     return (
       <tr
         key={row._id}
@@ -73,14 +72,16 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
         <td key={row._id} className="pl-5">
           {(() => {
             if (name?.length === 1) {
-              return name.itemName;
+              return name[0].itemName;
             } else if (name?.length === 2) {
               return `${name[0]?.itemName.slice(
                 0,
                 10
               )}...+${name[1].itemName.slice(0, 10)}...`;
-            } else {
+            } else if(name?.length >=3 ){
               return `${name[0]?.itemName.slice(0, 10)}...+Other`;
+            }else{
+              return " - "
             }
           })()}
           <td>{row.updatedAt}</td>

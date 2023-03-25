@@ -31,18 +31,17 @@ export const taps = [
 ];
 
 export const options = [
-  { id: "paid,", select: "Paid" },
+  { id: "paid", select: "Paid" },
   { id: "sent", select: "Sent" },
   { id: "pending", select: "Pending" },
   { id: "cancelled", select: "Cancelled" },
   { id: "active", select: "Active" },
   { id: "inactive", select: "Inactive" },
-  { id: "ready", select: "Ready" },
   { id: "refunded", select: "Refunded" },
   { id: "rejected", select: " Rejected" },
 ];
 export const invoiceOptions = [
-  { id: "paid,", select: "Paid" },
+  { id: "paid", select: "Paid" },
   { id: "sent", select: "Sent" },
   { id: "pending", select: "Pending" },
   { id: "cancelled", select: "Cancelled" },
