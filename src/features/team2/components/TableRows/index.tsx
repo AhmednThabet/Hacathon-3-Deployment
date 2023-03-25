@@ -49,12 +49,13 @@ const TableRows = ({
   };
 
   type = "invoice";
-  const handleClick = (id: string) => {
-    if (type === "invoice") {
-      setGetId(id);
+  const handleClick = (row: any) => {
+    if (row.type === "invoice") {
+      setGetId(row.invoice?._id);
       setInvoiceDrawer(true);
       toggleDrawer();
     } else {
+      setGetId(row.service?._id);
       setLinkDrawer(true);
       toggleDrawer();
     }
@@ -102,7 +103,7 @@ const TableRows = ({
       <tr
         key={row._id}
         className="border-y text-base h-[75px] text-[#707070] font-[600] hover:bg-slate-50 px-7"
-        onClick={() => handleClick(row._id)}
+        onClick={() => handleClick(row)}
       >
         {/* {linkDrawer && <LinkDrawer linkId={row.service._id} />}
         {invoiceDrawer && <InvoiceDrawer invoiceId={row.invoice._id} />} */}
