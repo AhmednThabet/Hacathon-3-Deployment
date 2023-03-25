@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-// import { textAreaProps } from "../types";
+
 export const TextArea = forwardRef<any, any>(
   ({ className, placeHolder, name, id, cols, rows, ...rest }, ref) => {
     return (
