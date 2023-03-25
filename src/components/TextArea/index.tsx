@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { forwardRef } from "react";
 // import { textAreaProps } from "../types";
 export const TextArea = forwardRef<any, any>(
