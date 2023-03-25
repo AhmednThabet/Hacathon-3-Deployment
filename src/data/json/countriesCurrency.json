@@ -1,0 +1,84 @@
+[
+  {
+    "name": "United States of America",
+    "code": "US",
+    "capital": "Washington, D.C.",
+    "region": "NA",
+    "currency": {
+      "code": "USD",
+      "name": "United States dollar",
+      "symbol": "$"
+    },
+    "language": {
+      "code": "en",
+      "iso639_2": "eng",
+      "name": "English",
+      "nativeName": "English"
+    },
+    "flag": "https://restcountries.eu/data/usa.svg"
+  },
+  {
+    "name": "Israel",
+    "code": "IL",
+    "capital": "Jerusalem",
+    "region": "AS",
+    "currency": {
+      "code": "ILS",
+      "name": "Israeli new shekel",
+      "symbol": "₪"
+    },
+    "language": {
+      "code": "he",
+      "name": "Hebrew (modern)"
+    },
+    "flag": "https://restcountries.eu/data/isr.svg"
+  },
+  {
+    "name": "Germany",
+    "code": "DE",
+    "capital": "Berlin",
+    "region": "EU",
+    "currency": {
+      "code": "EUR",
+      "name": "Euro",
+      "symbol": "€"
+    },
+    "language": {
+      "code": "de",
+      "name": "German"
+    },
+    "flag": "https://restcountries.eu/data/deu.svg"
+  },
+  {
+    "name": "Egypt",
+    "code": "EG",
+    "capital": "Cairo",
+    "region": "AF",
+    "currency": {
+      "code": "EGP",
+      "name": "Egyptian pound",
+      "symbol": "£"
+    },
+    "language": {
+      "code": "ar",
+      "name": "Arabic"
+    },
+    "flag": "https://restcountries.eu/data/egy.svg"
+  },
+  {
+    "name": "United Kingdom of Great Britain and Northern Ireland",
+    "code": "GB",
+    "capital": "London",
+    "region": "EU",
+    "currency": {
+      "code": "GBP",
+      "name": "British pound",
+      "symbol": "£"
+    },
+    "language": {
+      "code": "en",
+      "name": "English"
+    },
+    "flag": "https://restcountries.eu/data/gbr.svg"
+  }
+]

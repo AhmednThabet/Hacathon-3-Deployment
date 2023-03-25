@@ -23,5 +23,7 @@ export * from "./Divider";
 export * from "./Skeleton";
 export * from "./ToggleButtons";
 export * from "./Preview";
+export * from "./TextArea";
+export * from "./InvoicePreview";
 export * from "./Modal";
 export { default as Dropdown } from "./Dropdown";

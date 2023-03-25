@@ -1,5 +1,5 @@
 import type { NextPageWithLayout } from "types";
-import { NoSsr, Timeline, Drawer, Button } from "components";
+import { NoSsr, Timeline, Drawer, Button, Image } from "components";
 import { useCurrentUser, useLogout } from "features/authentication";
 import DashboardLayout from "layouts/DashboardLayout";
 import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
@@ -22,6 +22,7 @@ const MohammedZiyad: NextPageWithLayout = () => {
     } else {
       setLinkDrawer(true);
       toggleDrawer();
+
     }
   };
   return (
@@ -36,8 +37,41 @@ const MohammedZiyad: NextPageWithLayout = () => {
           />
         )}
         {invoiceDrawer && (
-          <InvoiceDrawer invoiceId="641df914440ad52d259532e1" />
+          <InvoiceDrawer
+            isToggled={isToggled}
+            toggleDrawer={toggleDrawer}
+            invoiceId="641da70873ac594b84ec3096"
+          />
         )}
+
+        <div className="mt-10 space-x-5">
+          <button
+            onClick={() =>
+              setTimeout(function () {
+                setToast(!toast);
+              }, 5000)
+            }
+            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white"
+          >
+            Show Toast
+          </button>
+        </div>
+        <div
+          id="myToast"
+          className={`${
+            toast ? "" : "hidden"
+          }  fixed right-96 bottom-20 px-5 py-4 border border-gray-light bg-[#F2FFF3] drop-shadow-lg`}
+        >
+          <p className="text-xl font-semibold flex gap-3 items-center">
+            <Image
+              src="/assets/img/correct.svg"
+              alt="correct"
+              width={20}
+              height={20}
+            />
+            Your link is deactivated successfully
+          </p>
+        </div>
       </DashboardLayout>
     </NoSsr>
   );

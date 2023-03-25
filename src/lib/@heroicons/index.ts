@@ -11,6 +11,7 @@ import {
   CheckIcon as CheckIconMini,
   PlusIcon as Plus,
   Bars3CenterLeftIcon as MenuBar,
+  Bars3CenterLeftIcon as BarsIcon,
 } from "@heroicons/react/20/solid";
 
 import {
@@ -41,9 +42,15 @@ import {
   ArrowDownTrayIcon as ArrowDownTrayIcon,
   Bars3Icon as Bars3Icon,
   MagnifyingGlassIcon as SearchIcon,
+  ChevronLeftIcon as ArrowLeft,
+  ChevronRightIcon as ArrowRight,
 
 } from "@heroicons/react/24/outline";
-
+import {
+  ChevronLeftIcon as BackArrowIcon,
+  XCircleIcon as XCircleIcon,
+  XMarkIcon as XMark,
+} from "@heroicons/react/24/outline";
 export {
   ErrorIconMini,
   CheckCircleIconMini,
@@ -82,5 +89,11 @@ export {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
   ArrowsUpDownIcon,
-  SearchIcon
+  BackArrowIcon,
+  XCircleIcon,
+  XMark,
+  SearchIcon,
+  BarsIcon,
+  ArrowLeft,
+  ArrowRight
 };

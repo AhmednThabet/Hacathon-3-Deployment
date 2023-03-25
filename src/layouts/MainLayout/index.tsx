@@ -8,6 +8,7 @@ export const MainLayout: MainLayoutType = ({
   pageDescription = "Talents Valley platform",
   withoutNavbar = false,
   contentClassName = "",
+  footerClassName = "",
 }) => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -26,7 +27,7 @@ export const MainLayout: MainLayoutType = ({
       >
         {children}
       </main>
-      <Footer />
+      <Footer className={footerClassName} />
     </div>
   );
 };
