@@ -55,6 +55,8 @@ const InvoiceDrawer = ({ invoiceId, isToggled, toggleDrawer }: any) => {
     fetcherGet
   );
 
+  console.log(data);
+
   const getButtonText = (s: string) => {
     switch (s) {
       case "paid":
