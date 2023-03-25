@@ -80,8 +80,8 @@ export const Preview = ({ data, withClintInfo = false, className }: any) => {
           </header>
           <div className="w-full flex flex-col h-[100px] overflow-auto">
             <div>
-              {watch("fixed").map((oneService: any) => (
-                <div className=" flex justify-between mb-4">
+              {watch("fixed").map((oneService: any, index) => (
+                <div className=" flex justify-between mb-4" key={index}>
                   {oneService.itemName ? (
                     <p>{oneService?.itemName} </p>
                   ) : (
