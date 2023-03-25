@@ -56,8 +56,11 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
       return "text-gray-dark";
     }
   };
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   const rows = data?.transactions?.map((row: any) => {
+    const d = new Date(row.updatedAt);
+
     const name =  row.type === 'all'?  row.type ==='invoice'?  row.invoice?.fixed : row.service?.fixed :  row.type === 'invoice' ? row.invoice?.fixed : row.service?.fixed;
     return (
       <tr
@@ -80,11 +83,12 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
               )}...+${name[1].itemName.slice(0, 10)}...`;
             } else if(name?.length >=3 ){
               return `${name[0]?.itemName.slice(0, 10)}...+Other`;
-            }else{
+            }
+            else{
               return " - "
             }
           })()}
-          <td>{row.updatedAt}</td>
+          <td>{months[d.getMonth()]} {d.getDate()}</td>
         </td>
         <td></td>
         <td>
