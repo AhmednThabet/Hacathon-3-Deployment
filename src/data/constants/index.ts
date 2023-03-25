@@ -28,6 +28,9 @@ export const API_SERVICES_URLS = {
     ADDRECIPINT: "/recipient/list?offset=0&limit=5",
     OFFICE_LIST: "/withdraw/office-list?office=&limit=10",
   },
+  INVOICESYSTEM: {
+    INVOICE_DETAILS_Drawer: (id: string) => `/invoice/${id}`,
+  },
 } as const;
 
 export const COOKIES_KEYS = {
