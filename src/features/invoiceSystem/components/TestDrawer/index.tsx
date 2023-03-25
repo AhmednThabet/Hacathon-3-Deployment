@@ -4,6 +4,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Button } from "components";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { json } from "stream/consumers";
 
 export const TestDrawer = ({
   children,
@@ -91,9 +92,11 @@ export const TestDrawer = ({
                             fullWidth
                             onClick={() =>
                               router.push({
-                                pathname: `/hackathon3/InvoiceTable/[vid]`,
-                                query: { vid: data?.invoice?._id },
-                                // state: { data },
+                                pathname: "/hackathon3/createInvoice",
+                                query: {
+                                  vid: data?.invoice?._id,
+                                  Data: JSON.stringify(data.invoice),
+                                },
                               })
                             }
                           >

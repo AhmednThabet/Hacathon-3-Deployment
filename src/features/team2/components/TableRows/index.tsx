@@ -1,9 +1,13 @@
 import { IconButton } from "components";
+import InvoiceDrawer from "features/invoiceSystem/components/InvoiceDrawer";
+import LinkDrawer from "features/invoiceSystem/components/LinkDrawer";
+import { useToggleDrawer } from "features/invoiceSystem/hooks/useToggleDrawer";
 import { ArrowLeft, ArrowRight } from "lib/@heroicons";
 import axios from "lib/axios";
 import { useSWR } from "lib/swr";
 import React, { useState } from "react";
 import { getAuthorizationHeader } from "utils";
+import MohammedZiyad from "../mohammed-ziyad";
 
 const handeller = async (url: string) => {
   const res = await axios.get(url, {
@@ -15,16 +19,24 @@ const handeller = async (url: string) => {
   return res.data.data;
 };
 
-const TableRows = ({ type, search, sort, selectedOptions }: any) => {
+const TableRows = ({
+  type,
+  search,
+  sort,
+  selectedOptions,
+  setLinkDrawer,
+  setInvoiceDrawer,
+  toggleDrawer,
+  setGetId,
+}: any) => {
   const [offset, setOffset] = useState(0);
   const [tranPersage, setTranPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
-  const [linkDrawer, setLinkDrawer] = useState(false);
-  const [invoiceDrawer, setInvoiceDrawer] = useState(false);
 
   const { data, error, isLoading } = useSWR(
     `https://talents-valley-backend.herokuapp.com/api/transactions/invoice-service-listing?limit=${tranPersage}&sort=${sort}&search=${search}${
-      selectedOptions && `&filter=${selectedOptions}`}&offset=${offset}&type=${type}`,
+      selectedOptions && `&filter=${selectedOptions}`
+    }&offset=${offset}&type=${type}`,
     handeller
   );
   const PaginationNext = () => {
@@ -37,11 +49,14 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
   };
 
   type = "invoice";
-  const handleClick = () => {
+  const handleClick = (id: string) => {
     if (type === "invoice") {
+      setGetId(id);
       setInvoiceDrawer(true);
+      toggleDrawer();
     } else {
       setLinkDrawer(true);
+      toggleDrawer();
     }
   };
 
@@ -56,19 +71,42 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
       return "text-gray-dark";
     }
   };
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   const rows = data?.transactions?.map((row: any) => {
-    const name =  row.type === 'all'?  row.type ==='invoice'?  row.invoice?.fixed : row.service?.fixed :  row.type === 'invoice' ? row.invoice?.fixed : row.service?.fixed;
+    const name =
+      row.type === "all"
+        ? row.type === "invoice"
+          ? row.invoice?.fixed
+          : row.service?.fixed
+        : row.type === "invoice"
+        ? row.invoice?.fixed
+        : row.service?.fixed;
+    const d = new Date(row.updatedAt);
+
+    // const name =  row.type === 'all'?  row.type ==='invoice'?  row.invoice?.fixed : row.service?.fixed :  row.type === 'invoice' ? row.invoice?.fixed : row.service?.fixed;
     return (
       <tr
         key={row._id}
         className="border-y text-base h-[75px] text-[#707070] font-[600] hover:bg-slate-50 px-7"
-        onClick={handleClick}
+        onClick={() => handleClick(row._id)}
       >
         {/* {linkDrawer && <LinkDrawer linkId={row.service._id} />}
-        {invoiceDrawer && (
-        <InvoiceDrawer invoiceId={row.invoice._id} />
-        )} */}
+        {invoiceDrawer && <InvoiceDrawer invoiceId={row.invoice._id} />} */}
+
         <td key={row._id} className="pl-5">
           {(() => {
             if (name?.length === 1) {
@@ -78,13 +116,15 @@ const TableRows = ({ type, search, sort, selectedOptions }: any) => {
                 0,
                 10
               )}...+${name[1].itemName.slice(0, 10)}...`;
-            } else if(name?.length >=3 ){
+            } else if (name?.length >= 3) {
               return `${name[0]?.itemName.slice(0, 10)}...+Other`;
-            }else{
-              return " - "
+            } else {
+              return " - ";
             }
           })()}
-          <td>{row.updatedAt}</td>
+          <td>
+            {months[d.getMonth()]} {d.getDate()}
+          </td>
         </td>
         <td></td>
         <td>

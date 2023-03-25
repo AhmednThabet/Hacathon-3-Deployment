@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Preview } from "components";
 import { CreateLink } from "features/team2";
-import { useRouter } from "next/router";
 import CreateInvoiceLayout from "layouts/CreateInvoiceLayout";
 const CreateLinkPage = () => {
   const [previewData, setPreviewData] = useState({
