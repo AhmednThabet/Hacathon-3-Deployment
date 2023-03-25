@@ -1,23 +1,25 @@
 import type { NextPageWithLayout } from "types";
 import { NoSsr } from "components";
-import Drawer from "components/Drawer";
-import { useCurrentUser, useLogout } from "features/authentication";
 import DashboardLayout from "layouts/DashboardLayout";
 
-const Hackathon3: NextPageWithLayout = () => {
-  const { user } = useCurrentUser();
-  const logout = useLogout();
+import TableWraber from "features/team2/components/TableWraber";
+
+
+
+const InvoiceTable: NextPageWithLayout = () => {
   return (
     <NoSsr>
-      <DashboardLayout>world</DashboardLayout>
+      <DashboardLayout>
+          <TableWraber/>
+      </DashboardLayout>
     </NoSsr>
   );
 };
 
-Hackathon3.mainLayoutProps = {
+InvoiceTable.mainLayoutProps = {
   title: "Talents Valley Home",
   pageDescription: "Home page description",
   contentClassName: "!items-start pt-[70px] h-full !px-0 relative",
 };
 
-export default Hackathon3;
+export default InvoiceTable;

@@ -1,3 +1,4 @@
+
 import {
   ExclamationTriangleIcon as ErrorIconMini,
   CheckCircleIcon as CheckCircleIconMini,
@@ -10,6 +11,7 @@ import {
   CheckIcon as CheckIconMini,
   PlusIcon as Plus,
   Bars3CenterLeftIcon as MenuBar,
+  Bars3CenterLeftIcon as BarsIcon,
 } from "@heroicons/react/20/solid";
 
 import {
@@ -39,6 +41,9 @@ import {
   QuestionMarkCircleIcon,
   ArrowDownTrayIcon as ArrowDownTrayIcon,
   Bars3Icon as Bars3Icon,
+  MagnifyingGlassIcon as SearchIcon,
+  ChevronLeftIcon as ArrowLeft,
+  ChevronRightIcon as ArrowRight,
 
 } from "@heroicons/react/24/outline";
 import {
@@ -87,4 +92,8 @@ export {
   BackArrowIcon,
   XCircleIcon,
   XMark,
+  SearchIcon,
+  BarsIcon,
+  ArrowLeft,
+  ArrowRight
 };

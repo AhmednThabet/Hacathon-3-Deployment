@@ -5,3 +5,5 @@ export * from "./WithdrawImg";
 export * from "./ContactImg";
 export * from "./CurvedArrow";
 export * from "./ThreeDots";
+export * from "./PaperAirplan";
+export * from "./Link";
